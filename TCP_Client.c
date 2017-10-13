@@ -29,7 +29,7 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
+//This this the prototype for the TCP Client code used by arm
 #include <stdio.h>
 #include "xil_printf.h"
 
@@ -64,7 +64,7 @@
 #define GTC_DATL 0x00
 #define GTC_DATH 0x04
 
-#define CLK_3x2x 333333333 //¼ÆÊıÆ÷´ïµ½¸ÃÖµ,¼´Îª1s
+#define CLK_3x2x 333333333 //è®¡æ•°å™¨è¾¾åˆ°è¯¥å€¼,å³ä¸º1s
 
 int tcp_trans_done = 0;
 unsigned int tcp_client_connected = 0;
@@ -73,10 +73,10 @@ struct tcp_pcb* connected_pcb;
 void delay_05ms()
 {
 	int i = CLK_3x2x / 200 , j;
-	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x00;          //ÇåÁã¶¨Ê±Æ÷Ê¹ÄÜÎ»£¬¶¨Ê±Æ÷Í£Ö¹
-	*((volatile int*)(GTC_BASE + GTC_DATL)) = 0x00000000;    //Ğ´ÈëµÍ32bit
-	*((volatile int*)(GTC_BASE + GTC_DATH)) = 0x00000000;    //Ğ´Èë¸ß32bit
-	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x01;        //¿ªÆô¶¨Ê±Æ÷
+	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x00;          //æ¸…é›¶å®šæ—¶å™¨ä½¿èƒ½ä½ï¼Œå®šæ—¶å™¨åœæ­¢
+	*((volatile int*)(GTC_BASE + GTC_DATL)) = 0x00000000;    //å†™å…¥ä½32bit
+	*((volatile int*)(GTC_BASE + GTC_DATH)) = 0x00000000;    //å†™å…¥é«˜32bit
+	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x01;        //å¼€å¯å®šæ—¶å™¨
 	do
 	{
 		j = *((volatile int*)(GTC_BASE + GTC_DATL));
@@ -87,10 +87,10 @@ void delay_05ms()
 void delay_1s(int t)
 {
 	int i = CLK_3x2x / 2 , j;
-	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x00;          //ÇåÁã¶¨Ê±Æ÷Ê¹ÄÜÎ»£¬¶¨Ê±Æ÷Í£Ö¹
-	*((volatile int*)(GTC_BASE + GTC_DATL)) = 0x00000000;    //Ğ´ÈëµÍ32bit
-	*((volatile int*)(GTC_BASE + GTC_DATH)) = 0x00000000;    //Ğ´Èë¸ß32bit
-	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x01;        //¿ªÆô¶¨Ê±Æ÷
+	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x00;          //æ¸…é›¶å®šæ—¶å™¨ä½¿èƒ½ä½ï¼Œå®šæ—¶å™¨åœæ­¢
+	*((volatile int*)(GTC_BASE + GTC_DATL)) = 0x00000000;    //å†™å…¥ä½32bit
+	*((volatile int*)(GTC_BASE + GTC_DATH)) = 0x00000000;    //å†™å…¥é«˜32bit
+	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x01;        //å¼€å¯å®šæ—¶å™¨
 	do
 	{
 		j = *((volatile int*)(GTC_BASE + GTC_DATL));
@@ -100,10 +100,10 @@ void delay_1s(int t)
 
 void tic(void)
 {
-	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x00;          //ÇåÁã¶¨Ê±Æ÷Ê¹ÄÜÎ»£¬¶¨Ê±Æ÷Í£Ö¹
-	*((volatile int*)(GTC_BASE + GTC_DATL)) = 0x00000000;    //Ğ´ÈëµÍ32bit
-	*((volatile int*)(GTC_BASE + GTC_DATH)) = 0x00000000;    //Ğ´Èë¸ß32bit
-	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x01;          //¿ªÆô¶¨Ê±Æ÷
+	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x00;          //æ¸…é›¶å®šæ—¶å™¨ä½¿èƒ½ä½ï¼Œå®šæ—¶å™¨åœæ­¢
+	*((volatile int*)(GTC_BASE + GTC_DATL)) = 0x00000000;    //å†™å…¥ä½32bit
+	*((volatile int*)(GTC_BASE + GTC_DATH)) = 0x00000000;    //å†™å…¥é«˜32bit
+	*((volatile int*)(GTC_BASE + GTC_CTRL)) = 0x01;          //å¼€å¯å®šæ—¶å™¨
 }
 
 double toc(void)
